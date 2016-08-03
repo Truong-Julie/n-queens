@@ -110,14 +110,28 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      var board = this.rows();
+      var colArray = [];
+      for (var i = 0; i < board.length; i++) {
+        colArray.push(board[i][colIndex]);
+      }
+      var total = colArray.reduce(function(accum, item) {
+        return accum + item;
+      });
+      return total > 1 ? true : false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      var board = this.rows();
+      var length = board.length;
+      for (var i = 0; i < length; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
-
 
 
     // Major Diagonals - go from top-left to bottom-right
