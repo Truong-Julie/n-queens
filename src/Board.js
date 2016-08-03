@@ -79,12 +79,28 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      var board = this.rows();
+      var total = board[rowIndex].reduce(function(accum, item) {
+        return accum + item;
+      });
+      return total > 1 ? true : false;
+      // return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      var board = this.rows();
+      // iterate over board 
+      for (var i = 0; i < board.length; i++) {
+        // final total of each row
+        var total = board[i].reduce(function (accum, item) {
+          return accum + item;
+        });
+        if (total > 1) {
+          return true;
+        }
+      }
+      return false; 
     },
 
 
