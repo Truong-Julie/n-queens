@@ -51,6 +51,7 @@ window.countNRooksSolutions = function(n) {
     // }
     board = board || new Board({n:n});
     console.log('start board', board.rows());
+    debugger;
 
     // console.log('start rowOptions', rowOptions)
     rowOptions = rowOptions || _.range(n);
@@ -58,6 +59,7 @@ window.countNRooksSolutions = function(n) {
     colOptions = colOptions || _.range(n);
 
     if (rowOptions.length === 0 || colOptions.length === 0) { // exit when you ran out of options
+      //may need to add if (rookcount !== n)
       // console.log(board.rows());
       solutionCount++;
     }
