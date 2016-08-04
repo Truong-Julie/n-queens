@@ -155,17 +155,20 @@
         var rowStart = -startIndex;
         var colStart = 0;
       } else {
-        var rowStart = startIndex;
+        var rowStart = 0;
         var colStart = startIndex;
       }
 
       for (var i = rowStart; i < board.length; i++) {
         var row = board[i];
-        diagonalArrays.push(row[colStart]);
-        colStart++;
+        if (typeof row[colStart] === 'number') {
+          diagonalArrays.push(row[colStart]);
+          colStart++;
+        }
+        
       }
-
-      var total = diagonalArrays.reduce(function(accum, item) {
+      console.log(diagonalArrays);
+      var total = diagonalArrays.reduce(function(accum, item) { 
         return accum + item;
       });
 
