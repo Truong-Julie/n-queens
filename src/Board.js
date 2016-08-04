@@ -139,12 +139,51 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var board = this.rows();
+      // [0, 0, 0, 0],
+      // [1, 1, 0, 0],
+      // [0, 0, 0, 0],
+      // [0, 0, 0, 0]
+      var diagonalArrays = []; 
+
+
+      //[0,0,0]
+      
+      var startIndex = majorDiagonalColumnIndexAtFirstRow;
+
+      if (startIndex < 0) {
+        var rowStart = -startIndex;
+        var colStart = 0;
+      } else {
+        var rowStart = startIndex;
+        var colStart = startIndex;
+      }
+      console.log('rowStart', rowStart, 'startIndex', startIndex, 'colStart', colStart);
+      for (var i = rowStart; i < board.length; i++) {
+        var row = board[i];
+        diagonalArrays.push(row[colStart]);
+        colStart++;
+      }
+
+      var total = diagonalArrays.reduce(function(accum, item) {
+        return accum + item;
+      });
+      console.log(diagonalArrays);
+      return total > 1 ? true : false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      var board = this.rows();
+      var length = board.lenght;
+      var secondHalfArr = [];
+
+      for (var i = -(length - 1); i < length; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        } 
+      }
+      return false;
     },
 
 
