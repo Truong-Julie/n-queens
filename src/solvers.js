@@ -58,23 +58,32 @@ window.countNRooksSolutions = function(n) {
     // console.log('start colOptions', colOptions)
     colOptions = colOptions || _.range(n);
 
-    if (rowOptions.length === 0 || colOptions.length === 0) { // exit when you ran out of options
-      //may need to add if (rookcount !== n)
+
+    if (rowOptions.length === 0 && colOptions.length === 0) { // exit when you ran out of options
       // console.log(board.rows());
       solutionCount++;
+      return;
     }
-
-    for (var r = 0; r < rowOptions.length; r++) {
-      for (var c = 0; c < colOptions.length; c++) {
-
-        board.togglePiece(r, c);
-        rowOptions.splice(r, 1);
-        colOptions.splice(c, 1);
+    // if (rookCount !== n) {
+    //   //may need to add if (rookcount !== n)
+    //   return;
+    // }
+    for (var i = 0; i < rowOptions.length; i++) {
+      for (var j = 0; j < colOptions.length; j++) {
+        var rightCoordinate = rowOptions[i]; //item in rowOptions
+        var leftCoordinate = colOptions[j];
+        board.togglePiece(rightCoordinate, leftCoordinate);
+        rowOptions = rowOptions.slice();
+        rowOptions.splice(i, 1); // remove that coordinate from options
+        colOptions = colOptions.slice();
+        colOptions.splice(j, 1); // remove that coordinate from options
+        // rowOptions.splice(r, 1);
+        // colOptions.splice(c, 1);
         checkBoards(n, board, rowOptions, colOptions);
-        console.log('n', n, 'board', board.rows(), 'rowOptions', rowOptions, 'colOptions', colOptions)
+        console.log('n', n, 'board', board.rows(), 'rowOptions', rowOptions, 'colOptions', colOptions);
       }
     }
-  }
+  };
   checkBoards(n);
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
