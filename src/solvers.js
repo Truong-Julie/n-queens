@@ -44,7 +44,7 @@ window.findNRooksSolution = function(n) {
 window.countNRooksSolutions = function(n) {
   // var solution = undefined; //fixme
   var solutionCount = 0;
-  var checkBoards = function (n, board, rowOptions, colOptions) {
+  var checkBoards = function (n, board, rowOptions, colOptions, tempRowOptions, tempColOptions) {
     // If Board is empty return
     // if (n === 0) {
     //   return;
@@ -68,23 +68,24 @@ window.countNRooksSolutions = function(n) {
     //   //may need to add if (rookcount !== n)
     //   return;
     // }
-    for (var i = 0; i < rowOptions.length; i++) {
-      for (var j = 0; j < colOptions.length; j++) {
+    tempRowOptions = tempRowOptions || rowOptions.slice();
+    tempColOptions = tempColOptions || colOptions.slice();
+    for (var i = 0; i < tempRowOptions.length; i++) {
+      for (var j = 0; j < tempColOptions.length; j++) {
         var rightCoordinate = rowOptions[i]; //item in rowOptions
         var leftCoordinate = colOptions[j];
-        board.togglePiece(rightCoordinate, leftCoordinate);
-        rowOptions = rowOptions.slice();
-        rowOptions.splice(i, 1); // remove that coordinate from options
-        colOptions = colOptions.slice();
+        board.togglePiece(rightCoordinate, leftCoordinate);        
+        rowOptions.splice(i, 1); // remove that coordinate from options        
         colOptions.splice(j, 1); // remove that coordinate from options
         // rowOptions.splice(r, 1);
         // colOptions.splice(c, 1);
-        checkBoards(n, board, rowOptions, colOptions);
+        checkBoards(n, board, rowOptions, colOptions, tempRowOptions, tempColOptions);
         console.log('n', n, 'board', board.rows(), 'rowOptions', rowOptions, 'colOptions', colOptions);
       }
     }
   };
-  checkBoards(n);
+  checkBoards(4);
+  // checkBoards(n);
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
