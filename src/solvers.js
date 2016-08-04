@@ -46,29 +46,30 @@ window.countNRooksSolutions = function(n) {
   var solutionCount = 0;
   var checkBoards = function (n, board, rowOptions, colOptions) {
     // If Board is empty return
-    if (n === 0) {
-      return;
-    }
-
+    // if (n === 0) {
+    //   return;
+    // }
     board = board || new Board({n:n});
+    console.log('start board', board.rows());
 
+    // console.log('start rowOptions', rowOptions)
     rowOptions = rowOptions || _.range(n);
+    // console.log('start colOptions', colOptions)
     colOptions = colOptions || _.range(n);
 
     if (rowOptions.length === 0 || colOptions.length === 0) { // exit when you ran out of options
+      // console.log(board.rows());
       solutionCount++;
     }
 
     for (var r = 0; r < rowOptions.length; r++) {
       for (var c = 0; c < colOptions.length; c++) {
-        board = board.togglePiece(r,c);
-        if ( board.hasAnyRookConflicts()) {
-          return;
-        } else {  
-          rowOptions = rowOptions.splice(r, 1);
-          colOptions = colOptions.splice(c, 1);
-          checkBoards(n, board, rowOptions, colOptions);
-        }
+
+        board.togglePiece(r, c);
+        rowOptions.splice(r, 1);
+        colOptions.splice(c, 1);
+        checkBoards(n, board, rowOptions, colOptions);
+        console.log('n', n, 'board', board.rows(), 'rowOptions', rowOptions, 'colOptions', colOptions)
       }
     }
   }
