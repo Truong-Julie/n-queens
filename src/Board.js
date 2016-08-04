@@ -159,7 +159,6 @@
         }
         
       }
-      console.log(diagonalArrays);
       var total = diagonalArrays.reduce(function(accum, item) { 
         return accum + item;
       });
