@@ -158,7 +158,7 @@
         var rowStart = startIndex;
         var colStart = startIndex;
       }
-      console.log('rowStart', rowStart, 'startIndex', startIndex, 'colStart', colStart);
+
       for (var i = rowStart; i < board.length; i++) {
         var row = board[i];
         diagonalArrays.push(row[colStart]);
@@ -168,16 +168,14 @@
       var total = diagonalArrays.reduce(function(accum, item) {
         return accum + item;
       });
-      console.log(diagonalArrays);
+
       return total > 1 ? true : false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      var board = this.rows();
-      var length = board.lenght;
-      var secondHalfArr = [];
-
+      var length = this.rows().length;
+      console.log(this.rows());
       for (var i = -(length - 1); i < length; i++) {
         if (this.hasMajorDiagonalConflictAt(i)) {
           return true;
